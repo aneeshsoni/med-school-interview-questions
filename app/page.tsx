@@ -97,7 +97,7 @@ export default function Home() {
   };
 
   return (
-    <div className="container">
+    <div className="container" onClick={getNextQuestion}>
       <main>
         <h1>Med School Interview Questions</h1>
         <AnimatePresence mode="wait">
@@ -130,7 +130,7 @@ export default function Home() {
             onChange={handleTimerChange}
           />
         </div>
-        <p>Press space to go to the next question</p>
+        <p>Press space or click anywhere to go to the next question</p>
       </main>
 
       <style jsx global>{`

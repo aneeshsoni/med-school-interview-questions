@@ -97,7 +97,7 @@ export default function Home() {
   };
 
   return (
-    <div className="container" onClick={getNextQuestion}>
+    <div className="container">
       <main>
         <h1>Med School Interview Questions</h1>
         <AnimatePresence mode="wait">
@@ -109,7 +109,7 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="question-container"
           >
-            <h2>{currentQuestion.text}</h2>
+            <h2 onClick={getNextQuestion}>{currentQuestion.text}</h2>
             <h3>Topic: {currentQuestion.topic}</h3>
             <motion.div
               className="timer"
@@ -130,7 +130,7 @@ export default function Home() {
             onChange={handleTimerChange}
           />
         </div>
-        <p>Press space or click/tap anywhere to go to the next question</p>
+        <p>Hit space or click on the question to go to the next one</p>
       </main>
 
       <style jsx global>{`
@@ -163,7 +163,7 @@ export default function Home() {
           max-width: 1200px;
         }
         h1 {
-          font-size: 3rem;
+          font-size: 1.5rem;
           margin-bottom: 2rem;
           color: #333;
           text-align: center;

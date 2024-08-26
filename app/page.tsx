@@ -130,7 +130,7 @@ export default function Home() {
             onChange={handleTimerChange}
           />
         </div>
-        <p>Press space or click anywhere to go to the next question</p>
+        <p>Press space or click/tap anywhere to go to the next question</p>
       </main>
 
       <style jsx global>{`

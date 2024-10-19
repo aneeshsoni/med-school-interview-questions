@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Question } from '../types';
 import { questions } from '../data/questions';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const [currentQuestion, setCurrentQuestion] = useState<Question>(questions[0]);
@@ -62,9 +63,11 @@ export default function Home() {
     setRemainingTime(newDuration);
   };
 
+  const router = useRouter();
+
   return (
-    <div className="container">
-      <main>
+    <div className="container flex flex-col min-h-screen">
+      <main className="flex-grow">
         <h1>Med School Interview Questions</h1>
         <AnimatePresence mode="wait">
           <motion.div
@@ -98,6 +101,17 @@ export default function Home() {
         </div>
         <p>Hit space or click on the question to go to the next one</p>
       </main>
+      
+      <footer className="mt-auto py-4">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="donate-button"
+          onClick={() => router.push('/donate')}
+        >
+          Donate
+        </motion.button>
+      </footer>
     </div>
   );
 }

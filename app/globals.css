@@ -115,3 +115,31 @@ p {
   color: #666;
   text-align: center;
 }
+
+/* Add these styles to your existing CSS */
+
+.donate-button,
+.back-button,
+.donation-link {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.donation-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.donation-link {
+  margin: 10px 0;
+}

@@ -15,12 +15,11 @@ export default function Resources() {
             category: "YouTube Channels",
             items: [
                 {
-                    title: "Dr. Gray's Medical School Interviews",
+                    title: "Dr. Gray's Medical School Interivew Prep",
                     description: "Comprehensive interview prep with real examples and common pitfalls",
-                    url: "https://www.youtube.com/c/DrGrayMedSchool",
+                    url: "https://www.youtube.com/@MedicalSchoolHQ",
                     type: "video",
                     duration: "Multiple videos",
-                    rating: 5,
                     tags: ["Interview Prep", "Common Questions", "Body Language"]
                 },
                 {
@@ -29,54 +28,41 @@ export default function Resources() {
                     url: "https://www.youtube.com/c/MedSchoolInsiders",
                     type: "video",
                     duration: "Multiple videos",
-                    rating: 5,
                     tags: ["Mock Interviews", "Strategy", "Tips"]
                 },
-                {
-                    title: "The Premed Years",
-                    description: "Personal experiences and advice from successful applicants",
-                    url: "https://www.youtube.com/c/ThePremedYears",
-                    type: "video",
-                    duration: "Multiple videos",
-                    rating: 4,
-                    tags: ["Personal Stories", "Experience", "Advice"]
-                }
             ]
         },
         {
             category: "Blog Posts & Articles",
             items: [
                 {
+                    title: "Reddit r/premed",
+                    description: "Comprehensive collection of advice and experiences ahead of medical school",
+                    url: "https://www.reddit.com/r/premed/",
+                    type: "forum",
+                    duration: "Community",
+                    tags: ["Community", "Experiences", "Advice"]
+                },
+                {
+                    title: "Reddit r/medschool",
+                    description: "Comprehensive collection of advice from folks in medical school",
+                    url: "https://www.reddit.com/r/medschool/",
+                    type: "forum",
+                    duration: "Community",
+                    tags: ["Community", "Experiences", "Advice"]
+                },
+                {
                     title: "AAMC Interview Guide",
-                    description: "Official guide to medical school interviews with sample questions",
-                    url: "https://students-residents.aamc.org/preparing-medical-school/applying-medical-school/applying-medical-school-process/applying-medical-school-application/interview",
+                    description: "Sample questions asked of applicants during interviews",
+                    url: "https://students-residents.aamc.org/interviewing-residency-positions/questions-frequently-asked-applicants-during-interviews",
                     type: "article",
-                    duration: "15 min read",
-                    rating: 5,
+                    duration: "5 min read",
                     tags: ["Official Guide", "Sample Questions", "Process"]
                 },
-                {
-                    title: "SDN Interview Forum",
-                    description: "Real interview experiences and tips from medical students",
-                    url: "https://forums.studentdoctor.net/forums/pre-medical-allopathic-md.10/",
-                    type: "forum",
-                    duration: "Community",
-                    rating: 4,
-                    tags: ["Real Experiences", "Community", "Tips"]
-                },
-                {
-                    title: "Reddit r/premed Interview Megathread",
-                    description: "Comprehensive collection of interview advice and experiences",
-                    url: "https://www.reddit.com/r/premed/search/?q=interview%20megathread&restrict_sr=1",
-                    type: "forum",
-                    duration: "Community",
-                    rating: 4,
-                    tags: ["Community", "Experiences", "Advice"]
-                }
             ]
         },
         {
-            category: "Interview Techniques",
+            category: "Interview Techniques & Practice Resources",
             items: [
                 {
                     title: "STAR Method Guide",
@@ -84,84 +70,26 @@ export default function Resources() {
                     url: "https://www.indeed.com/career-advice/interviewing/how-to-use-the-star-interview-response-technique",
                     type: "technique",
                     duration: "10 min read",
-                    rating: 5,
                     tags: ["STAR Method", "Behavioral", "Structure"]
                 },
                 {
                     title: "Body Language for Interviews",
-                    description: "Non-verbal communication tips for medical school interviews",
+                    description: "Non-verbal communication tips for medical school interviews. Honestly don't overthink this, but it's here if you want to read through it.",
                     url: "https://www.scienceofpeople.com/body-language-interview/",
                     type: "technique",
                     duration: "8 min read",
-                    rating: 4,
                     tags: ["Body Language", "Non-verbal", "Communication"]
                 },
                 {
                     title: "MMI (Multiple Mini Interview) Prep",
-                    description: "Specific strategies for MMI-style interviews",
-                    url: "https://www.prospectivedoctor.com/mmi-prep/",
+                    description: "120 more questions to practice with for the MMI",
+                    url: "https://www.prospectivedoctor.com/multiple-mini-interview-sample-question/",
                     type: "technique",
-                    duration: "12 min read",
-                    rating: 4,
+                    duration: "10 min read",
                     tags: ["MMI", "Strategy", "Practice"]
-                }
+                },
             ]
         },
-        {
-            category: "Practice Resources",
-            items: [
-                {
-                    title: "Mock Interview Services",
-                    description: "Professional mock interview services for medical school applicants",
-                    url: "https://www.medschoolinsiders.com/mock-interviews/",
-                    type: "service",
-                    duration: "Paid Service",
-                    rating: 5,
-                    tags: ["Mock Interviews", "Professional", "Feedback"]
-                },
-                {
-                    title: "Interview Question Database",
-                    description: "Extensive database of medical school interview questions by category",
-                    url: "https://www.prospectivedoctor.com/interview-questions/",
-                    type: "database",
-                    duration: "Free Resource",
-                    rating: 4,
-                    tags: ["Question Database", "Categories", "Free"]
-                },
-                {
-                    title: "Ethics Case Studies",
-                    description: "Practice ethical scenarios commonly asked in medical school interviews",
-                    url: "https://www.medschoolinsiders.com/medical-ethics/",
-                    type: "practice",
-                    duration: "Multiple cases",
-                    rating: 4,
-                    tags: ["Ethics", "Case Studies", "Practice"]
-                }
-            ]
-        },
-        {
-            category: "School-Specific Resources",
-            items: [
-                {
-                    title: "MSAR Interview Information",
-                    description: "Official interview information for each medical school",
-                    url: "https://students-residents.aamc.org/applying-medical-school/applying-medical-school-process/applying-medical-school-application/interview",
-                    type: "database",
-                    duration: "School-specific",
-                    rating: 5,
-                    tags: ["Official", "School-specific", "Process"]
-                },
-                {
-                    title: "Student Doctor Network School-Specific Forums",
-                    description: "Interview experiences and tips for specific medical schools",
-                    url: "https://forums.studentdoctor.net/forums/medical-school-specific-discussions.12/",
-                    type: "forum",
-                    duration: "Community",
-                    rating: 4,
-                    tags: ["School-specific", "Experiences", "Community"]
-                }
-            ]
-        }
     ];
 
     const getIcon = (type: string) => {
@@ -284,44 +212,6 @@ export default function Resources() {
                         </motion.div>
                     ))}
                 </div>
-
-                {/* Tips Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 }}
-                    className="mt-12"
-                >
-                    <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
-                        <CardHeader>
-                            <CardTitle className="text-xl font-semibold text-center">
-                                💡 Pro Tips for Using These Resources
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <div className="space-y-3">
-                                    <h4 className="font-semibold text-blue-600">📚 Study Strategy</h4>
-                                    <ul className="text-sm text-muted-foreground space-y-2">
-                                        <li>• Start with official guides (AAMC) for foundational knowledge</li>
-                                        <li>• Watch YouTube videos for visual learning and examples</li>
-                                        <li>• Practice with mock interviews to build confidence</li>
-                                        <li>• Read real experiences to understand what to expect</li>
-                                    </ul>
-                                </div>
-                                <div className="space-y-3">
-                                    <h4 className="font-semibold text-purple-600">🎯 Application Tips</h4>
-                                    <ul className="text-sm text-muted-foreground space-y-2">
-                                        <li>• Focus on school-specific resources for your target programs</li>
-                                        <li>• Practice ethical scenarios regularly</li>
-                                        <li>• Record yourself answering questions to improve delivery</li>
-                                        <li>• Join online communities for peer support and advice</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </motion.div>
 
                 {/* Back Button */}
                 <motion.footer

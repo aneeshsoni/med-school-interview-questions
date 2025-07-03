@@ -127,7 +127,7 @@ export default function Home() {
             Med School Interview Questions
           </h1>
           <p className="text-muted-foreground text-lg">
-            Practice with confidence • Master your responses
+            Practice with confidence and master your responses!
           </p>
         </motion.div>
 

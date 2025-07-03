@@ -19,10 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className + " min-h-screen bg-background text-foreground flex flex-col"}>
+      <body className={inter.className + " min-h-screen bg-background text-foreground"}>
         <PostHogProvider>
           {/* Top nav for desktop */}
-          <nav className="hidden sm:flex fixed top-0 left-0 right-0 w-full justify-center py-3 px-2 bg-white/80 backdrop-blur-sm shadow-sm border-b border-slate-200 dark:border-slate-800 z-40">
+          <nav className="hidden sm:flex w-full justify-center py-3 px-2 bg-white/80 backdrop-blur-sm shadow-sm border-b border-slate-200 dark:border-slate-800">
             <div className="flex gap-6 w-full max-w-2xl items-center justify-center">
               <Link href="/" className="font-semibold text-blue-600 hover:text-purple-600 transition-colors rounded-md py-2 px-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 flex items-center gap-2">
                 <Home className="h-5 w-5" /> Questions
@@ -53,7 +53,7 @@ export default function RootLayout({
             </div>
           </nav>
           {/* Main content, with padding for mobile nav */}
-          <div className="pb-14 sm:pb-0">
+          <div className="pt-0 pb-14 sm:pt-0 sm:pb-0 min-h-screen">
             {children}
           </div>
         </PostHogProvider>

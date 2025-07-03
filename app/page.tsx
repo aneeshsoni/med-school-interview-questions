@@ -14,13 +14,17 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Clock, Play, SkipForward, Heart, Filter, X } from 'lucide-react';
 
 export default function Home() {
-  const [currentQuestion, setCurrentQuestion] = useState<Question>(questions[0]);
+  const [questionState, setQuestionState] = useState(() => {
+    const randomIndex = Math.floor(Math.random() * questions.length);
+    return {
+      currentQuestion: questions[randomIndex],
+      usedQuestionIds: [questions[randomIndex].id],
+    };
+  });
   const [timerDuration, setTimerDuration] = useState<number>(30);
   const [remainingTime, setRemainingTime] = useState<number>(timerDuration);
-  const [usedQuestionIds, setUsedQuestionIds] = useState<number[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState<boolean>(false);
-  const [questionChangeCount, setQuestionChangeCount] = useState(0);
 
   // Get unique categories from questions
   const categories = Array.from(new Set(questions.map(q => q.topic))).sort();
@@ -33,38 +37,32 @@ export default function Home() {
   // Get filtered questions based on selected categories
   const filteredQuestions = questions.filter(q => selectedCategories.includes(q.topic));
 
-  // Initialize with a random question from filtered questions
-  useEffect(() => {
-    if (filteredQuestions.length > 0) {
-      const randomIndex = Math.floor(Math.random() * filteredQuestions.length);
-      setCurrentQuestion(filteredQuestions[randomIndex]);
-      setUsedQuestionIds([filteredQuestions[randomIndex].id]);
-    }
-  }, [selectedCategories]);
-
   const getNextQuestion = useCallback(() => {
-    if (filteredQuestions.length === 0) return;
-
-    let availableQuestions = filteredQuestions.filter(q => !usedQuestionIds.includes(q.id));
-    if (availableQuestions.length === 0) {
-      setUsedQuestionIds([]);
-      availableQuestions = filteredQuestions;
-    }
-    let nextQuestion = availableQuestions[0];
-    if (availableQuestions.length > 1) {
-      let randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * availableQuestions.length);
-        nextQuestion = availableQuestions[randomIndex];
-      } while (nextQuestion.id === currentQuestion.id);
-    } else {
-      nextQuestion = availableQuestions[0];
-    }
-    setCurrentQuestion(nextQuestion);
-    setUsedQuestionIds(prev => [...prev, nextQuestion.id]);
-    setRemainingTime(timerDuration);
-    setQuestionChangeCount(prev => prev + 1);
-  }, [filteredQuestions, usedQuestionIds, timerDuration, currentQuestion.id]);
+    const questionPool = selectedCategories.length === categories.length ? questions : filteredQuestions;
+    if (questionPool.length === 0) return;
+    setQuestionState(prev => {
+      let availableQuestions = questionPool.filter(q => !prev.usedQuestionIds.includes(q.id));
+      if (availableQuestions.length === 0) {
+        availableQuestions = questionPool;
+        if (availableQuestions.length === 0) return prev;
+        // Reset usedQuestionIds
+        const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+        const nextQuestion = availableQuestions[randomIndex];
+        setRemainingTime(timerDuration);
+        return {
+          currentQuestion: nextQuestion,
+          usedQuestionIds: [nextQuestion.id],
+        };
+      }
+      const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+      const nextQuestion = availableQuestions[randomIndex];
+      setRemainingTime(timerDuration);
+      return {
+        currentQuestion: nextQuestion,
+        usedQuestionIds: [...prev.usedQuestionIds, nextQuestion.id],
+      };
+    });
+  }, [selectedCategories, categories.length, filteredQuestions, timerDuration]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -82,13 +80,13 @@ export default function Home() {
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      if (event.code === 'Space') {
+      // Prevent default spacebar scroll if not in an input/textarea
+      if (event.code === 'Space' && !(event.target instanceof HTMLInputElement) && !(event.target instanceof HTMLTextAreaElement)) {
         event.preventDefault();
         getNextQuestion();
       }
     };
-
-    window.addEventListener('keydown', handleKeyPress);
+    window.addEventListener('keydown', handleKeyPress, { passive: false });
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [getNextQuestion]);
 
@@ -125,19 +123,19 @@ export default function Home() {
   const progressPercentage = ((timerDuration - remainingTime) / timerDuration) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="h-screen min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden">
+      <div className="container mx-auto px-2 py-4 max-w-4xl flex flex-col justify-center flex-1">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8"
+          className="text-center mb-4"
         >
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
             Med School Interview Questions
           </h1>
           <p className="text-muted-foreground text-lg">
-            Practice with confidence and master your responses!
+            Practice with confidence • Master your responses
           </p>
         </motion.div>
 
@@ -145,31 +143,31 @@ export default function Home() {
         <AnimatePresence mode="wait">
           {filteredQuestions.length > 0 ? (
             <motion.div
-              key={currentQuestion.id + '-' + questionChangeCount}
+              key={questionState.currentQuestion.id}
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -20 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="mb-8"
+              className="mb-4"
             >
               <Card
-                className="bg-white/90 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group touch-manipulation"
+                className="bg-white/90 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-300 group"
               >
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
                     <Badge variant="outline" className="text-xs">
-                      {currentQuestion.topic}
+                      {questionState.currentQuestion.topic}
                     </Badge>
                     <SkipForward className="h-4 w-4 text-muted-foreground group-hover:text-blue-600 transition-colors" />
                   </div>
                 </CardHeader>
                 <CardContent className="p-8">
-                  <CardTitle
+                  <h2
                     className="text-2xl md:text-3xl font-semibold leading-relaxed text-gray-800 dark:text-gray-200 text-center group-hover:text-blue-600 transition-colors cursor-pointer"
                     onClick={getNextQuestion}
                   >
-                    {currentQuestion.text}
-                  </CardTitle>
+                    {questionState.currentQuestion.text}
+                  </h2>
                 </CardContent>
               </Card>
             </motion.div>
@@ -204,7 +202,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="text-center mb-8"
+          className="text-center mb-4"
         >
           <div className="flex items-center justify-center gap-2 text-muted-foreground">
             <Play className="h-4 w-4" />
@@ -219,7 +217,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="space-y-4 mb-8"
+          className="space-y-4 mb-4"
         >
           {/* Timer Controls */}
           <Card className="bg-white/60 backdrop-blur-sm border-0 shadow-md">
@@ -232,7 +230,7 @@ export default function Home() {
                   </span>
                 </div>
                 <Badge variant="secondary" className="text-xs">
-                  {usedQuestionIds.length} / {filteredQuestions.length}
+                  {questionState.usedQuestionIds.length} / {(selectedCategories.length === categories.length ? questions.length : filteredQuestions.length)}
                 </Badge>
               </div>
 
@@ -343,7 +341,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="text-center"
+          className="text-center mt-2"
         >
           <Button
             onClick={() => router.push('/donate')}

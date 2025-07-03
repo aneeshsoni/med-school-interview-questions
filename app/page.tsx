@@ -20,6 +20,7 @@ export default function Home() {
   const [usedQuestionIds, setUsedQuestionIds] = useState<number[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState<boolean>(false);
+  const [questionChangeCount, setQuestionChangeCount] = useState(0);
 
   // Get unique categories from questions
   const categories = Array.from(new Set(questions.map(q => q.topic))).sort();
@@ -49,12 +50,21 @@ export default function Home() {
       setUsedQuestionIds([]);
       availableQuestions = filteredQuestions;
     }
-    const randomIndex = Math.floor(Math.random() * availableQuestions.length);
-    const nextQuestion = availableQuestions[randomIndex];
+    let nextQuestion = availableQuestions[0];
+    if (availableQuestions.length > 1) {
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * availableQuestions.length);
+        nextQuestion = availableQuestions[randomIndex];
+      } while (nextQuestion.id === currentQuestion.id);
+    } else {
+      nextQuestion = availableQuestions[0];
+    }
     setCurrentQuestion(nextQuestion);
     setUsedQuestionIds(prev => [...prev, nextQuestion.id]);
     setRemainingTime(timerDuration);
-  }, [filteredQuestions, usedQuestionIds, timerDuration]);
+    setQuestionChangeCount(prev => prev + 1);
+  }, [filteredQuestions, usedQuestionIds, timerDuration, currentQuestion.id]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -135,7 +145,7 @@ export default function Home() {
         <AnimatePresence mode="wait">
           {filteredQuestions.length > 0 ? (
             <motion.div
-              key={currentQuestion.id}
+              key={currentQuestion.id + '-' + questionChangeCount}
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -20 }}
@@ -143,8 +153,7 @@ export default function Home() {
               className="mb-8"
             >
               <Card
-                className="bg-white/90 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group"
-                onClick={getNextQuestion}
+                className="bg-white/90 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group touch-manipulation"
               >
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
@@ -155,7 +164,10 @@ export default function Home() {
                   </div>
                 </CardHeader>
                 <CardContent className="p-8">
-                  <CardTitle className="text-2xl md:text-3xl font-semibold leading-relaxed text-gray-800 dark:text-gray-200 text-center group-hover:text-blue-600 transition-colors">
+                  <CardTitle
+                    className="text-2xl md:text-3xl font-semibold leading-relaxed text-gray-800 dark:text-gray-200 text-center group-hover:text-blue-600 transition-colors cursor-pointer"
+                    onClick={getNextQuestion}
+                  >
                     {currentQuestion.text}
                   </CardTitle>
                 </CardContent>

@@ -134,9 +134,6 @@ export default function Home() {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
             Med School Interview Questions
           </h1>
-          <p className="text-muted-foreground text-lg">
-            Practice with confidence • Master your responses
-          </p>
         </motion.div>
 
         {/* Question Card - Now the main focus */}

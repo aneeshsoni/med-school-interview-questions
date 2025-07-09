@@ -148,7 +148,8 @@ export default function Home() {
               className="mb-4"
             >
               <Card
-                className="bg-white/90 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-300 group"
+                className="bg-white/90 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-300 group cursor-pointer"
+                onClick={getNextQuestion}
               >
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
@@ -160,8 +161,7 @@ export default function Home() {
                 </CardHeader>
                 <CardContent className="p-8">
                   <h2
-                    className="text-2xl md:text-3xl font-semibold leading-relaxed text-gray-800 dark:text-gray-200 text-center group-hover:text-blue-600 transition-colors cursor-pointer"
-                    onClick={getNextQuestion}
+                    className="text-2xl md:text-3xl font-semibold leading-relaxed text-gray-800 dark:text-gray-200 text-center group-hover:text-blue-600 transition-colors"
                   >
                     {questionState.currentQuestion.text}
                   </h2>
@@ -202,9 +202,8 @@ export default function Home() {
           className="text-center mb-4"
         >
           <div className="flex items-center justify-center gap-2 text-muted-foreground">
-            <Play className="h-4 w-4" />
             <span className="text-sm">
-              Press <kbd className="px-2 py-1 text-xs font-semibold bg-gray-100 dark:bg-gray-800 rounded border">Space</kbd> or click the question to continue
+              Press <kbd className="px-2 py-1 text-xs font-semibold bg-gray-100 dark:bg-gray-800 rounded border">Space</kbd> or click the question card to continue
             </span>
           </div>
         </motion.div>
